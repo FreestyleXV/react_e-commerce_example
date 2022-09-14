@@ -15,6 +15,7 @@
     background: rgba(0, 0, 0, 0.73);
     position: absolute;
     bottom: 16px;
+    cursor: pointer;
 }
 .checkout-page-photo-button:hover{
     background: rgba(0, 0, 0, 0.274);

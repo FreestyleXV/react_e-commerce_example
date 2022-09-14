@@ -113,9 +113,9 @@ export default class CheckoutPage extends Component {
                             <div>Total:</div>
                         </div>
                         <div className='checkout-page-summary-value'>
-                            <div>{currencies[currency].symbol}{this.getTax(21)}</div>
+                            <div>{currencies.length===0?"$":currencies[currency].symbol}{this.getTax(21)}</div>
                             <div>{checkout.length}</div>
-                            <div>{currencies[currency].symbol}{this.getWholePrice()}</div>
+                            <div>{currencies.length===0?"$":currencies[currency].symbol}{this.getWholePrice()}</div>
                         </div>
                     </div>
                     <div className='checkout-page-checkout-button' onClick={()=>{console.log("order!")}}>ORDER</div>
