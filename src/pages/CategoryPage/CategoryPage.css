@@ -1,0 +1,19 @@
+.page{
+    margin-bottom: 50px;
+}
+
+.category-title{
+    font-size: 42px;
+    text-transform: capitalize;
+    margin-top:160px;
+    margin-bottom:80px;
+    margin-left: 100px;
+}
+
+.products-box-container{
+    width: calc(100% - 200px);
+    margin-left: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 386px);
+    grid-gap: 40px;
+}
