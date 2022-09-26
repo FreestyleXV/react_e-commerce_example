@@ -25,30 +25,33 @@ export default class CheckoutOverlayContent extends PureComponent {
     }
 
     renderProductDescription(){
+        const product = this.props.product
         return <div className='checkout-product-description'>
-            <div className='checkout-content-brand'>{this.props.product.data.brand}</div>
-            <div className='checkout-content-name'>{this.props.product.data.name.length>17?this.props.product.data.name.slice(0,14)+"...":this.props.product.data.name}</div>
-            <div className='checkout-content-price'>{this.props.product.data.prices[this.props.currency].currency.symbol}{this.props.product.data.prices[this.props.currency].amount}</div>
-            {this.props.product.data.allAttributes.map((attr, j)=>{
-                return <ChceckoutOverlayContentAttribute key={j} attr={attr} attribute={this.props.product.data.attributes[j]}/>
+            <div className='checkout-content-brand'>{product.data.brand}</div>
+            <div className='checkout-content-name'>{product.data.name.length>17?product.data.name.slice(0,14)+"...":product.data.name}</div>
+            <div className='checkout-content-price'>{product.data.prices[this.props.currency].currency.symbol}{product.data.prices[this.props.currency].amount}</div>
+            {product.data.allAttributes.map((attr, j)=>{
+                return <ChceckoutOverlayContentAttribute key={j} attr={attr} attribute={product.data.attributes[j]}/>
             })}
         </div>
     }
 
     render() {
+        const product = this.props.product
+
         return (
             <div className="checkout-content">
 
                 {this.renderProductDescription()}
 
                 <div className='checkout-product-count'>
-                    <img src={plus} onClick={()=>{this.addOne(this.props.product.data)}} style={{"cursor":"pointer"}} alt="add"></img>
-                    <div>{this.props.product.count}</div>
-                    <img src={minus} onClick={()=>{this.removeOne(this.props.product.data)}} style={{"cursor":"pointer"}} alt="remove"></img>
+                    <img src={plus} onClick={()=>{this.addOne(product.data)}} style={{"cursor":"pointer"}} alt="add"></img>
+                    <div>{product.count}</div>
+                    <img src={minus} onClick={()=>{this.removeOne(product.data)}} style={{"cursor":"pointer"}} alt="remove"></img>
                 </div>
 
                 <div className='checkout-product-image'>
-                    <img src={this.props.product.data.gallery[0]} alt="product"></img>
+                    <img src={product.data.gallery[0]} alt="product"></img>
                 </div>
                 
             </div>

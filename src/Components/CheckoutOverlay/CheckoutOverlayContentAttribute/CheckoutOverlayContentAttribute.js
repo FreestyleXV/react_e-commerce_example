@@ -22,12 +22,13 @@ export default class CheckoutOverlayContentAttribute extends PureComponent {
   }
 
   render() {
+    const attr = this.props.attr
     return (
       <div className="checkout-content-attribute">
-        <div className='attribute-label'>{this.props.attr.name.length > 17 ? this.props.attr.name.slice(0, 14) + "..." : this.props.attr.name}</div>
+        <div className='attribute-label'>{attr.name.length > 17 ? attr.name.slice(0, 14) + "..." : attr.name}</div>
         <div className='attribute-contents'>
-          {this.props.attr.items.map((item, k) => {
-            if (this.props.attr.type === "swatch") {
+          {attr.items.map((item, k) => {
+            if (attr.type === "swatch") {
               return this.renderSwatchAttribute(item, k)
             }
             else {

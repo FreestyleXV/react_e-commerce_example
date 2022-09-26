@@ -39,11 +39,12 @@ export default class CheckoutPage extends PureComponent {
         const currencies = this.context.currencies
         const currency = this.context.currency
         const checkout = this.context.checkout.contents
+        const history = this.props.history
         let sortedCheckout = sortCheckout(checkout)
 
         return (
             <div className='page'>
-                <Header history={this.props.history}/>
+                <Header history={history}/>
                 <div className='checkout-page-title'>CART</div>
                 <div className='checkout-page-divider'></div>
                 {sortedCheckout.map( (product, i) => {
@@ -61,7 +62,7 @@ export default class CheckoutPage extends PureComponent {
                             <div>{currencies.length===0?"$":currencies[currency].symbol}{this.getWholePrice()}</div>
                         </div>
                     </div>
-                    <div className='checkout-page-checkout-button' onClick={()=>{this.props.history.goBack()}}>ORDER</div>
+                    <div className='checkout-page-checkout-button' onClick={()=>{history.goBack()}}>ORDER</div>
             </div>
         )
     }

@@ -29,24 +29,25 @@ export default class MiniCheckout extends PureComponent {
     render() {
         const checkout = this.context.checkout.contents
         const sortedCheckout = sortCheckout(checkout)
+        const { opened, currencySymbol, currency, toCheckout } = this.props
 
         return (
-            <div className={`checkout ${this.props.opened?"opened":""}`} style={{"height":`${this.props.opened?(sortedCheckout.length>2?466:sortedCheckout.length*233)+191:0}px`}}>
+            <div className={`checkout ${opened?"opened":""}`} style={{"height":`${opened?(sortedCheckout.length>2?466:sortedCheckout.length*233)+191:0}px`}}>
                 <div className='checkout-description'>
                     <span className='checkout-description-title'>My bag</span>
                     , {checkout.length} items
                 </div>
                 <div className='checkout-contents-box' style={{"height":`${(sortedCheckout.length>2?466:sortedCheckout.length*233)+30}px`}}>
                     {sortedCheckout.map( (product, i) => {
-                        return <CheckoutOverlayContent key={i} product={product} currency={this.props.currency}></CheckoutOverlayContent>
+                        return <CheckoutOverlayContent key={i} product={product} currency={currency}></CheckoutOverlayContent>
                     })}
                 </div>
                 <div className='checkout-summary'>
                     <span>Total</span>
-                    <span className='checkout-price'>{this.props.currencySymbol}{this.getWholePrice()}</span>
+                    <span className='checkout-price'>{currencySymbol}{this.getWholePrice()}</span>
                 </div>
                 <div className='checkout-buttons-box'>
-                    <span className='checkout-view-button' onClick={()=>{this.props.toCheckout()}}>VIEW BAG</span>
+                    <span className='checkout-view-button' onClick={()=>{toCheckout()}}>VIEW BAG</span>
                     <span className='checkout-checkout-button'>CHECK OUT</span>
                 </div>
             </div>

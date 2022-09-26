@@ -23,12 +23,13 @@ export default class CheckoutPageContentAttribute extends PureComponent {
   }
 
   render() {
+    const attr = this.props.attr
     return (
       <div className="checkout-page-content-attribute">
-        <div className='checkout-page-attribute-label'>{this.props.attr.name.toUpperCase()}:</div>
+        <div className='checkout-page-attribute-label'>{attr.name.toUpperCase()}:</div>
         <div className='checkout-page-attribute-contents'>
-          {this.props.attr.items.map((item, k)=>{
-            if(this.props.attr.type==="swatch"){
+          {attr.items.map((item, k)=>{
+            if(attr.type==="swatch"){
               return this.renderSwatchAttribute(item, k)
             }
             else{
