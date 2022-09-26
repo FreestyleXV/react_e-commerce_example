@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import "./CheckoutPhoto.css"
 
 import arrow from "../../SVG/arrow_horizontal.svg"
 
-export default class CheckoutPhoto extends Component {
+export default class CheckoutPhoto extends PureComponent {
     constructor(props){
         super(props)
         this.state={

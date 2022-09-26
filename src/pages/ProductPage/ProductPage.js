@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { sanitize } from "dompurify"
 import Header from '../../Components/Header/Header'
 import { getProduct } from '../../graphql'
 import { Query } from '@apollo/client/react/components/Query';
@@ -6,7 +7,7 @@ import "./ProductPage.css"
 
 import ShopContext from '../../Context';
 
-    export default class ProductPage extends Component {
+    export default class ProductPage extends PureComponent {
         static contextType = ShopContext
 
         constructor(props){
@@ -59,8 +60,8 @@ import ShopContext from '../../Context';
             const currency = this.context.currency
 
             return (
-                <div>
-                    <Header toCheckout={()=>{this.props.history.push("/checkout")}}/>
+                <div className='page'>
+                    <Header history={this.props.history}/>
                     <Query
                         query={getProduct(this.props.match.params.productId)}
                         onCompleted={(data)=>{setTimeout(()=>{this.getBasicAttributes(data); this.setState({product:data.product})})}}
@@ -125,7 +126,7 @@ import ShopContext from '../../Context';
                                     ?<div className='page-product-checkout-button' onClick={this.addToCart}>ADD TO CART</div>
                                     :<div className='page-product-not-available'>NOT AVAILABLE</div>
                                 }
-                                <div dangerouslySetInnerHTML={{__html: data.product.description}} className="product-page-description">
+                                <div dangerouslySetInnerHTML={{__html: sanitize(data.product.description)}} className="product-page-description">
                                 </div>
                             </div>
                         </div>;

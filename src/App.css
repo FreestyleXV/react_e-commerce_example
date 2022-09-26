@@ -1,3 +1,9 @@
 *{
   font-family: 'Raleway', sans-serif;
 }
+
+.page{
+  max-width: 1440px;
+  margin-inline: auto;
+  position: relative;
+}

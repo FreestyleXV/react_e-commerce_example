@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import "./ProductBox.css"
 
 import ShopContext from '../../Context'
 
 import cartImg from "../../SVG/empty_cart.svg"
 
-export default class ProductBox extends Component {
+export default class ProductBox extends PureComponent {
     static contextType = ShopContext
 
     constructor(props){

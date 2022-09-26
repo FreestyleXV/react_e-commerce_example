@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {NavLink} from "react-router-dom"
 import { Query } from '@apollo/client/react/components/Query';
 import "./Header.css"
@@ -12,22 +12,25 @@ import arrowUp from "../../SVG/arrow_up.svg"
 import arrowDown from "../../SVG/arrow_down.svg"
 import MiniCheckout from '../MiniCheckout/MiniCheckout'
 
-export default class Header extends Component {
+export default class Header extends PureComponent {
     static contextType = ShopContext
 
     constructor(props){
         super(props)
         this.state={
             currenciesOpen: false,
-            checkoutOpen: false
+            checkoutOpen: false,
         }
+    }
+
+    componentDidMount(){
+        this.context.checkout.subscribe(()=>{this.forceUpdate()})
     }
 
     render() {
         const currencies = this.context.currencies
         const currency = this.context.currency
-        const setCurrency = this.context.setCurrency
-        const checkout = this.context.checkout
+        const checkoutLength = this.context.checkout.contents.length
 
         return (
         <div className='header'>
@@ -50,7 +53,7 @@ export default class Header extends Component {
                     </span>;
                 }}
             </Query>
-            <img src={logo} alt="logo" className='logo'></img>
+            <img src={logo} alt="logo" className='logo' onClick={()=>{this.props.history.goBack()}}></img>
             <span className='header-options'>
                 <span className='header-currency' onClick={()=>{this.setState({currenciesOpen:!this.state.currenciesOpen, checkoutOpen:false})}}>
                     <span>{currencies[currency]?currencies[currency].symbol:"$"}</span>
@@ -58,15 +61,15 @@ export default class Header extends Component {
                 </span>
                 <span className='header-checkout' onClick={()=>{this.setState({checkoutOpen:!this.state.checkoutOpen, currenciesOpen:false})}}>
                     <img src={checkoutImg} alt="checkout"></img>
-                    {checkout.length>0?<div className='checkout-length-indicator'>{checkout.length>9?"9+":checkout.length}</div>:false}
+                    {checkoutLength>0?<div className='checkout-length-indicator'>{checkoutLength>9?"9+":checkoutLength}</div>:false}
                 </span>
             </span>
             <div className={`currenciesSelect ${this.state.currenciesOpen?"opened":""}`} style={this.state.currenciesOpen?{"height":`${currencies.length*45}px`}:{"height":0}}>
                 {currencies.map((currency, i)=>{
-                    return <div key={i} className="currencyOption" onClick={()=>{setCurrency(i);this.setState({currenciesOpen:false})}}>{currency.symbol + " " + currency.label}</div>
+                    return <div key={i} className="currencyOption" onClick={()=>{this.context.setCurrency(i);this.setState({currenciesOpen:false})}}>{currency.symbol + " " + currency.label}</div>
                 })}
             </div>
-            <MiniCheckout opened={this.state.checkoutOpen} currencySymbol={currencies[currency]?currencies[currency].symbol:"$"} currency={currency} checkout={checkout} toCheckout={this.props.toCheckout}/>
+            <MiniCheckout opened={this.state.checkoutOpen} currencySymbol={currencies[currency]?currencies[currency].symbol:"$"} currency={currency} toCheckout={()=>{this.props.history.push("/checkout")}}/>
             <div 
                 className={`header-options-page-overlay ${this.state.currenciesOpen?"currency-overlay":this.state.checkoutOpen?"checkout-overlay":""}`}
                 onClick={()=>{this.setState({currenciesOpen:false, checkoutOpen:false})}}

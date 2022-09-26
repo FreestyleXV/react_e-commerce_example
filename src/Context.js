@@ -1,14 +1,34 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Query } from '@apollo/client/react/components/Query';
 import { getCurrencies } from './graphql'
 
+class Checkout{
+  constructor(contents){
+    this.contents = contents
+    this.subscriptions = []
+  }
+
+  update(contents){
+    this.contents = contents
+    this.subscriptions.forEach(f=>f())
+  }
+
+  subscribe(f) {
+    this.subscriptions.push(f)
+  }
+}
+
 const ShopContext = React.createContext()
 
-class ShopProvider extends Component {
+class ShopProvider extends PureComponent {
+  
+  constructor(props){
+    super(props)
+    this.checkout = new Checkout(JSON.parse(localStorage.getItem("checkout") || "[]"))
+  }
   // Context state
   state = {
     currency: parseInt(localStorage.getItem("currency") || 0),
-    checkout: JSON.parse(localStorage.getItem("checkout") || "[]")
   }
 
   // Method to update state
@@ -18,14 +38,14 @@ class ShopProvider extends Component {
   }
 
   addToCheckout = (product) => {
-    let oldCheckout = this.state.checkout
+    let oldCheckout = this.checkout.contents
     oldCheckout.push(product)
     localStorage.setItem("checkout", JSON.stringify(oldCheckout))
-    this.setState(() => ({ checkout: oldCheckout }))
+    this.checkout.update(oldCheckout)
   }
 
   removeFromCheckout = (productToRemove) => {
-    let oldCheckout = this.state.checkout
+    let oldCheckout = this.checkout.contents
     let removedIndex = oldCheckout.findLastIndex( product => {
         if (product.id === productToRemove.id){
           for(let i=0; i<product.attributes.length; i++){
@@ -41,21 +61,20 @@ class ShopProvider extends Component {
         oldCheckout.splice(removedIndex, 1)
     }
     localStorage.setItem("checkout", JSON.stringify(oldCheckout))
-    this.setState(() => ({ checkout:oldCheckout }))
+    this.checkout.update(oldCheckout)
 
   }
 
   render() {
     const { children } = this.props
-    const { currency, checkout } = this.state
-    const { setCurrency, addToCheckout, removeFromCheckout } = this
+    const { currency } = this.state
+    const { checkout, setCurrency, addToCheckout, removeFromCheckout } = this
 
     return (
       <Query query={getCurrencies}>
         {({ loading, error, data }) => {
           let currencies = []
           if (error) {
-            console.log(error)
             return <ShopContext.Provider
               value={{
                 currencies,
@@ -70,7 +89,6 @@ class ShopProvider extends Component {
             </ShopContext.Provider>
           }
           if (loading || !data) {
-            console.log("error")
             return <ShopContext.Provider
               value={{
                 currencies,
