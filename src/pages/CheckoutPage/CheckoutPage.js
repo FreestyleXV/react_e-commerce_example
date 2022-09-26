@@ -5,7 +5,7 @@ import ShopContext from '../../Context'
 import { sortCheckout } from '../../Utils'
 import Header from '../../Components/Header/Header'
 
-import CheckoutPageContent from '../../Components/CheckoutPageContent/CheckoutPageContent'
+import CheckoutPageContent from '../../Components/CheckoutPageComponents/CheckoutPageContent/CheckoutPageContent'
 
 export default class CheckoutPage extends PureComponent {
     static contextType = ShopContext

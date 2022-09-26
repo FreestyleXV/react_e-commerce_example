@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import "./CheckoutPhoto.css"
 
-import arrow from "../../SVG/arrow_horizontal.svg"
+import arrow from "../../../SVG/arrow_horizontal.svg"
 
 export default class CheckoutPhoto extends PureComponent {
     constructor(props){

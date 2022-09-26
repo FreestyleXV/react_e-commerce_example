@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import "./MiniCheckout.css"
 
-import ShopContext from '../../Context';
-import { sortCheckout } from '../../Utils';
+import ShopContext from '../../../Context';
+import { sortCheckout } from '../../../Utils';
 
 import CheckoutOverlayContent from '../CheckoutOverlayContent/CheckoutOverlayContent';
 

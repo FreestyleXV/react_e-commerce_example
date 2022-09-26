@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import "./CheckoutOverlayContent.css"
 
-import ShopContext from '../../Context'
+import ShopContext from '../../../Context'
 
-import plus from "../../SVG/plus-square.svg"
-import minus from "../../SVG/minus-square.svg"
+import plus from "../../../SVG/plus-square.svg"
+import minus from "../../../SVG/minus-square.svg"
 import ChceckoutOverlayContentAttribute from '../CheckoutOverlayContentAttribute/CheckoutOverlayContentAttribute'
 
 export default class CheckoutOverlayContent extends PureComponent {

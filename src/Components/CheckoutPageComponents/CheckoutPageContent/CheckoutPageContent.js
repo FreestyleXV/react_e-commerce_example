@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import "./CheckoutPageContent.css"
 
-import ShopContext from '../../Context'
-import CheckoutPhoto from '../../Components/CheckoutPhoto/CheckoutPhoto'
+import ShopContext from '../../../Context'
+import CheckoutPhoto from '../CheckoutPhoto/CheckoutPhoto'
 
-import plus from "../../SVG/plus-square.svg"
-import minus from "../../SVG/minus-square.svg"
+import plus from "../../../SVG/plus-square.svg"
+import minus from "../../../SVG/minus-square.svg"
 import CheckoutPageContentAttribute from '../CheckoutPageContentAttribute/CheckoutPageContentAttribute'
 
 export default class CheckoutPageContent extends PureComponent {

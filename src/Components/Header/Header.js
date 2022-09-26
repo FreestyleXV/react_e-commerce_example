@@ -10,7 +10,7 @@ import logo from "../../SVG/logo.svg"
 import checkoutImg from "../../SVG/empty_cart.svg"
 import arrowUp from "../../SVG/arrow_up.svg"
 import arrowDown from "../../SVG/arrow_down.svg"
-import MiniCheckout from '../MiniCheckout/MiniCheckout'
+import MiniCheckout from '../CheckoutOverlay/MiniCheckout/MiniCheckout'
 
 export default class Header extends PureComponent {
     static contextType = ShopContext
